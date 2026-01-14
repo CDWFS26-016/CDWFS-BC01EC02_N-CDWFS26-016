@@ -1,5 +1,5 @@
 <div class="product-card-wrapper">
-  <mat-card class="product-card" [routerLink]="['/product', product().reference_produit]">
+  <mat-card class="product-card" [routerLink]="['/product', getProductSlug()]">
     <!-- Image du produit -->
     <div class="product-image">
       <img
@@ -24,10 +24,10 @@
         <span class="price-unit">{{ product().prix_unitaire | currency: 'EUR': 'symbol': '1.2-2' }}/pce</span>
       </div>
 
-      <!-- Collection -->
+      <!-- Collection
       @if (product().collection) {
         <p class="product-collection">{{ product().collection }}</p>
-      }
+      } -->
 
       <!-- Allergènes -->
       @if (product().allergenes.length > 0) {
@@ -36,18 +36,16 @@
     </mat-card-content>
 
     <!-- Bouton ajouter au panier rond avec + -->
-    <mat-card-footer>
-      <button
-        mat-fab
-        size="small"
-        color="primary"
-        class="add-to-cart-btn"
-        (click)="onAddToCart($event)"
-        aria-label="Ajouter au panier"
-        title="Ajouter au panier"
-      >
-        <mat-icon>add</mat-icon>
-      </button>
-    </mat-card-footer>
+    <button
+      mat-fab
+      size="small"
+      color="primary"
+      class="add-to-cart-btn"
+      (click)="onAddToCart($event)"
+      aria-label="Ajouter au panier"
+      title="Ajouter au panier"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
   </mat-card>
 </div>

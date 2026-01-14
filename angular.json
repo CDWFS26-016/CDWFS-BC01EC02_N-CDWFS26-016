@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "gugule-v1": {
+    "CDWFS-BC01EC02-N-CDWFS26-016": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -58,10 +58,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "gugule-v1:build:production"
+              "buildTarget": "CDWFS-BC01EC02-N-CDWFS26-016:build:production"
             },
             "development": {
-              "buildTarget": "gugule-v1:build:development"
+              "buildTarget": "CDWFS-BC01EC02-N-CDWFS26-016:build:development"
             }
           },
           "defaultConfiguration": "development"

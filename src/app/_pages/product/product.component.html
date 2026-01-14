@@ -1,8 +1,118 @@
 <app-header></app-header>
 
 <div class="product-container">
-  <h1>Produit {{ productId }}</h1>
-  <p>Détails du produit à venir</p>
+  @if (isLoading()) {
+    <div class="loading">
+      <mat-icon>hourglass_empty</mat-icon>
+      <p>Chargement du produit...</p>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="error-message">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ error() }}</p>
+      <button mat-raised-button color="primary" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Retour au catalogue
+      </button>
+    </div>
+  }
+
+  @if (product()) {
+    <div class="product-detail">
+      <!-- Bouton retour -->
+      <button mat-icon-button class="back-button" (click)="goBack()" title="Retour">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+
+      <div class="product-grid">
+        <!-- Image principale -->
+        <div class="product-image-section">
+          <img 
+            [src]="'/assets/img/produits/' + product()!.reference_image"
+            [alt]="product()!.nom"
+            class="product-image"
+            onerror="this.src='/assets/img/produits/placeholder.png'"
+          />
+        </div>
+
+        <!-- Infos produit -->
+        <div class="product-info-section">
+          <!-- Référence -->
+          <div class="reference">
+            Réf: {{ product()!.reference_produit }}
+          </div>
+
+          <!-- Titre -->
+          <h1 class="product-title">{{ product()!.nom }}</h1>
+
+          <!-- Pièces -->
+          <div class="pieces-info">
+            <mat-icon>dashboard</mat-icon>
+            <span>{{ product()!.nombre_pieces }} pièces</span>
+          </div>
+
+          <!-- Description -->
+          <div class="description">
+            <h3>Description</h3>
+            <p>{{ product()!.description }}</p>
+          </div>
+
+          <!-- Ingrédients -->
+          <div class="ingredients">
+            <h3>Ingrédients</h3>
+            <ul>
+              @for (ingredient of product()!.ingredients; track ingredient) {
+                <li>{{ ingredient }}</li>
+              }
+            </ul>
+          </div>
+
+          <!-- Allergènes -->
+          @if (product()!.allergenes.length > 0) {
+            <div class="allergenes">
+              <h3>⚠️ Allergènes</h3>
+              <div class="allergene-tags">
+                @for (allergene of product()!.allergenes; track allergene) {
+                  <span class="allergene-tag">{{ allergene }}</span>
+                }
+              </div>
+            </div>
+          }
+
+          <!-- Prix -->
+          <div class="pricing-section">
+            <div class="price-row">
+              <span class="price-label">Prix au lot:</span>
+              <span class="price-value">{{ product()!.prix_lot | currency: 'EUR': 'symbol': '1.2-2' }}</span>
+            </div>
+            <div class="price-row">
+              <span class="price-label">Prix unitaire:</span>
+              <span class="price-value">{{ product()!.prix_unitaire | currency: 'EUR': 'symbol': '1.2-2' }}/pce</span>
+            </div>
+          </div>
+
+          <!-- Bouton ajouter au panier -->
+          <button mat-raised-button color="primary" class="add-to-cart-button" (click)="addToCart()">
+            <mat-icon>add_shopping_cart</mat-icon>
+            Ajouter au panier
+          </button>
+        </div>
+      </div>
+
+      <!-- Informations nutritionnelles -->
+      @if (product()!.informations_nutritionnelles && product()!.informations_nutritionnelles.lien_pdf) {
+        <div class="additional-info">
+          <h3>Informations nutritionnelles</h3>
+          <a [href]="product()!.informations_nutritionnelles.lien_pdf" target="_blank" class="pdf-link">
+            <mat-icon>picture_as_pdf</mat-icon>
+            Voir le PDF
+          </a>
+        </div>
+      }
+    </div>
+  }
 </div>
 
 <app-footer></app-footer>

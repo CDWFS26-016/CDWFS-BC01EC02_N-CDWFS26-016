@@ -1,16 +1,44 @@
-.spacer {
-  flex: 1 1 auto;
+.header-toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.logo {
-  font-size: 1.3rem;
-  font-weight: 600;
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 1400px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover .logo-image {
+    opacity: 0.9;
+  }
+}
+
+.logo-image {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  transition: opacity 0.2s ease;
+}
+
+.spacer {
+  flex: 1 1 auto;
 }
 
 .consumption-indicator {
   display: flex;
   align-items: center;
-  margin-left: 2rem;
 }
 
 .mode-button {

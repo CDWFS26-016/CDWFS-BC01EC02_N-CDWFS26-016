@@ -32,4 +32,22 @@ export class CatalogService {
       this.collectionsSignal.set(collections);
     });
   }
+
+  /**
+   * Extrait le slug du produit à partir du champ url
+   * Ex: /fr/livraison/umami/maki-shiitake-4037 -> maki-shiitake-4037
+   */
+  getProductSlug(product: Product): string {
+    if (!product.url) {
+      return product.reference_produit;
+    }
+    return product.url.split('/').pop() || product.reference_produit;
+  }
+
+  /**
+   * Trouve un produit par son slug
+   */
+  getProductBySlug(slug: string): Product | undefined {
+    return this.products().find(p => this.getProductSlug(p) === slug);
+  }
 }

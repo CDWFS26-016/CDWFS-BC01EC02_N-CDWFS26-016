@@ -183,10 +183,17 @@
 
 /* ===== GRILLE DE PRODUITS ===== */
 .products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  display: inline-flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
   margin-bottom: 2rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.products-grid > * {
+  width: minmax(220px, 1fr);
+  flex: 0 1 calc(25% - 1.5rem);
 }
 
 /* ===== NO PRODUCTS ===== */
@@ -217,8 +224,8 @@
     position: static;
   }
 
-  .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  .products-grid > * {
+    flex: 0 1 calc(33.333% - 1.5rem);
   }
 }
 
@@ -242,8 +249,11 @@
   }
 
   .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 1rem;
+  }
+
+  .products-grid > * {
+    flex: 0 1 calc(50% - 1rem);
   }
 
   .product-image {
@@ -261,8 +271,11 @@
 
 @media (max-width: 480px) {
   .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
     gap: 0.75rem;
+  }
+
+  .products-grid > * {
+    flex: 0 1 calc(50% - 0.75rem);
   }
 
   .selected-category-title {

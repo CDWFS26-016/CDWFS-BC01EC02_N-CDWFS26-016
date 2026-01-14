@@ -8,5 +8,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('gugule-v1');
+  protected readonly title = signal('CDWFS-BC01EC02-N-CDWFS26-016');
 }

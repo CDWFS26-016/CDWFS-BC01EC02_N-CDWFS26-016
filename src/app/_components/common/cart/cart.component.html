@@ -22,7 +22,8 @@
                 />
                 <div class="header-item-info">
                   <span class="header-item-name">{{ cartItem.product.nom }}</span>
-                  <span class="header-item-qty">x{{ cartItem.quantity }}</span>
+                  <span class="header-item-price">{{ cartItem.product.prix_lot | currency: 'EUR': 'symbol': '1.2-2' }}</span>
+                  <span class="header-item-qty">Qté: x{{ cartItem.quantity }}</span>
                 </div>
               </div>
             }

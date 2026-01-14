@@ -85,14 +85,11 @@
     }
   }
 
-  mat-card-footer {
-    padding: 0 16px 16px 16px;
-    display: flex;
-    justify-content: center;
-  }
 
   .add-to-cart-btn {
-    position: relative;
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
     z-index: 10;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
@@ -110,10 +107,6 @@
 
     mat-card-content {
       padding: 0 12px 8px 12px;
-    }
-
-    mat-card-footer {
-      padding: 0 12px 12px 12px;
     }
 
     mat-card-title {
