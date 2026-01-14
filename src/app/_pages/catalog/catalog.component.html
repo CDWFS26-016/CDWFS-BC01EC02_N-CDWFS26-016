@@ -54,35 +54,10 @@
       <div class="products-grid">
         @if (filteredProducts().length > 0) {
           @for (product of filteredProducts(); track product.reference_produit) {
-            <mat-card class="product-card">
-              <div class="product-image">
-                <img [src]="'/assets/img/produits/' + product.reference_image" 
-                  [alt]="product.nom"
-                  onerror="this.src='/assets/img/produits/placeholder.png'">
-              </div>
-              <mat-card-header>
-                <mat-card-title class="product-name">{{ product.nom }}</mat-card-title>
-                <mat-card-subtitle class="product-pieces">{{ product.nombre_pieces }} pièces</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p class="product-description">{{ product.description }}</p>
-                <div class="product-prices">
-                  <span class="price-lot">{{ product.prix_lot }}€ lot</span>
-                  <span class="price-unit">{{ product.prix_unitaire }}€/pce</span>
-                </div>
-                @if (product.collection) {
-                  <p class="product-collection">{{ getCollectionName(product.collection) }}</p>
-                }
-                @if (product.allergenes.length > 0) {
-                  <p class="product-allergenes">⚠️ {{ product.allergenes.join(', ') }}</p>
-                }
-              </mat-card-content>
-              <mat-card-footer>
-                <button mat-raised-button color="primary" class="add-to-cart" (click)="addToCart(product.reference_produit)">
-                  Ajouter au panier
-                </button>
-              </mat-card-footer>
-            </mat-card>
+            <app-product-card
+              [product]="product"
+              (addToCartClicked)="addToCart($event)">
+            </app-product-card>
           }
         } @else {
           <div class="no-products">

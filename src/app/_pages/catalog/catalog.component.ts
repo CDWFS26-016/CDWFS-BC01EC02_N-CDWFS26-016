@@ -1,7 +1,8 @@
 import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent, FooterComponent, CategoryFilterComponent, CategoriesListComponent } from '../../_components';
+import { HeaderComponent, FooterComponent, CategoryFilterComponent, CategoriesListComponent, ProductCardComponent } from '../../_components';
 import { CatalogService, CartService } from '../../_services';
+import { Product } from '../../_models';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import Swal from 'sweetalert2';
@@ -15,6 +16,7 @@ import Swal from 'sweetalert2';
     FooterComponent,
     CategoryFilterComponent,
     CategoriesListComponent,
+    ProductCardComponent,
     MatButtonModule,
     MatCardModule
   ],
@@ -170,18 +172,15 @@ export class CatalogComponent {
     return this.collections().find(c => c.id === collectionId)?.titre || '';
   }
 
-  addToCart(productId: string): void {
-    const product = this.allProducts().find(p => p.reference_produit === productId);
-    if (product) {
-      this.cartService.addToCart(product, 1);
-      Swal.fire({
-        title: 'Succès!',
-        html: `<strong>${product.nom}</strong> a été ajouté au panier`,
-        icon: 'success',
-        timer: 2000,
-        timerProgressBar: true,
-        showConfirmButton: false
-      });
-    }
+  addToCart(product: Product): void {
+    this.cartService.addToCart(product, 1);
+    Swal.fire({
+      title: 'Succès!',
+      html: `<strong>${product.nom}</strong> a été ajouté au panier`,
+      icon: 'success',
+      timer: 2000,
+      timerProgressBar: true,
+      showConfirmButton: false
+    });
   }
 }

@@ -1,10 +1,10 @@
 <button 
   mat-button 
   class="category-card"
-  [class.selected]="isSelected"
+  [class.selected]="isSelected()"
   (click)="onCardClick()">
   <div class="category-circle">
-    <img [src]="getImagePath()" [alt]="category.titre" class="category-image">
+    <img [src]="getImagePath()" [alt]="category().titre" class="category-image">
   </div>
-  <span class="category-label">{{ category.titre }}</span>
+  <span class="category-label">{{ category().titre }}</span>
 </button>

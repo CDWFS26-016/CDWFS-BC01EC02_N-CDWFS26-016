@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -14,12 +14,10 @@ import './cart.component.css';
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
-export class CartComponent implements OnInit {
-  @Input() displayMode: 'header' | 'full-page' = 'full-page';
+export class CartComponent {
+  displayMode = input<'header' | 'full-page'>('full-page');
 
   constructor(public cartService: CartService) {}
-
-  ngOnInit(): void {}
 
   updateQuantity(productId: string, quantity: number): void {
     if (quantity > 0) {

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { CategoryCardComponent } from '../category-card/category-card.component';
@@ -12,9 +12,9 @@ import { Category } from '../../../_models';
   styleUrl: './categories-list.component.css'
 })
 export class CategoriesListComponent {
-  @Input() categories: Category[] = [];
-  @Input() selectedCategoryId: number | null = null;
-  @Output() categorySelected = new EventEmitter<number | null>();
+  categories = input<Category[]>([]);
+  selectedCategoryId = input<number | null>(null);
+  categorySelected = output<number | null>();
 
   // Catégorie virtuelle "Tous"
   allCategory: Category = {

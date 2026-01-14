@@ -1,14 +1,14 @@
 <div class="categories-list-container">
   <app-category-card
     [category]="allCategory"
-    [isSelected]="selectedCategoryId === null"
+    [isSelected]="selectedCategoryId() === null"
     (clicked)="onCategoryClick(null)"
     class="category-item">
   </app-category-card>
-  @for (category of categories; track category.id) {
+  @for (category of categories(); track category.id) {
     <app-category-card
       [category]="category"
-      [isSelected]="selectedCategoryId === category.id"
+      [isSelected]="selectedCategoryId() === category.id"
       (clicked)="onCardClick($event)"
       class="category-item">
     </app-category-card>

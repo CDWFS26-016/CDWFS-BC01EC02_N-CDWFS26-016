@@ -1,0 +1,53 @@
+<div class="product-card-wrapper">
+  <mat-card class="product-card" [routerLink]="['/product', product().reference_produit]">
+    <!-- Image du produit -->
+    <div class="product-image">
+      <img
+        [src]="'/assets/img/produits/' + product().reference_image"
+        [alt]="product().nom"
+        onerror="this.src='/assets/img/produits/placeholder.png'"
+      />
+    </div>
+
+    <!-- Contenu de la carte -->
+    <mat-card-header>
+      <mat-card-title class="product-name">{{ product().nom }}</mat-card-title>
+      <mat-card-subtitle class="product-pieces">{{ product().nombre_pieces }} pièces</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p class="product-description">{{ product().description }}</p>
+
+      <!-- Prix -->
+      <div class="product-prices">
+        <span class="price-lot">{{ product().prix_lot | currency: 'EUR': 'symbol': '1.2-2' }}</span>
+        <span class="price-unit">{{ product().prix_unitaire | currency: 'EUR': 'symbol': '1.2-2' }}/pce</span>
+      </div>
+
+      <!-- Collection -->
+      @if (product().collection) {
+        <p class="product-collection">{{ product().collection }}</p>
+      }
+
+      <!-- Allergènes -->
+      @if (product().allergenes.length > 0) {
+        <p class="product-allergenes">⚠️ {{ product().allergenes.join(', ') }}</p>
+      }
+    </mat-card-content>
+
+    <!-- Bouton ajouter au panier rond avec + -->
+    <mat-card-footer>
+      <button
+        mat-fab
+        size="small"
+        color="primary"
+        class="add-to-cart-btn"
+        (click)="onAddToCart($event)"
+        aria-label="Ajouter au panier"
+        title="Ajouter au panier"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card-footer>
+  </mat-card>
+</div>

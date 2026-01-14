@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, computed } from '@angular/core';
+import { Component, input, output, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,34 +24,34 @@ import { Category, Product, Collection } from '../../../_models';
   styleUrl: './category-filter.component.css'
 })
 export class CategoryFilterComponent {
-  @Input() categories: Category[] = [];
-  @Input() collections: Collection[] = [];
-  @Input() allProducts: Product[] = [];
-  @Input() selectedPiecesFilter: number | null = null;
-  @Input() selectedCollectionFilter: number | null = null;
-  @Input() priceRange: [number, number] = [0, 100];
-  @Input() useLotPrice = true;
-  @Input() selectedIngredients: string[] = [];
-  @Input() excludedAllergenes: string[] = [];
+  categories = input<Category[]>([]);
+  collections = input<Collection[]>([]);
+  allProducts = input<Product[]>([]);
+  selectedPiecesFilter = input<number | null>(null);
+  selectedCollectionFilter = input<number | null>(null);
+  priceRange = input<[number, number]>([0, 100]);
+  useLotPrice = input(true);
+  selectedIngredients = input<string[]>([]);
+  excludedAllergenes = input<string[]>([]);
 
-  @Output() piecesFilterChanged = new EventEmitter<number | null>();
-  @Output() collectionFilterChanged = new EventEmitter<number | null>();
-  @Output() priceRangeChanged = new EventEmitter<[number, number]>();
-  @Output() useLotPriceChanged = new EventEmitter<boolean>();
-  @Output() ingredientToggled = new EventEmitter<string>();
-  @Output() allergeneToggled = new EventEmitter<string>();
-  @Output() filtersReset = new EventEmitter<void>();
+  piecesFilterChanged = output<number | null>();
+  collectionFilterChanged = output<number | null>();
+  priceRangeChanged = output<[number, number]>();
+  useLotPriceChanged = output<boolean>();
+  ingredientToggled = output<string>();
+  allergeneToggled = output<string>();
+  filtersReset = output<void>();
 
   // Computed properties
   uniquePieces = computed(() => {
     const pieces = new Set<number>();
-    this.allProducts.forEach(p => pieces.add(p.nombre_pieces));
+    this.allProducts().forEach(p => pieces.add(p.nombre_pieces));
     return Array.from(pieces).sort((a, b) => a - b);
   });
 
   allIngredients = computed(() => {
     const ingredients = new Set<string>();
-    this.allProducts.forEach(p => {
+    this.allProducts().forEach(p => {
       p.ingredients.forEach(ing => ingredients.add(ing));
     });
     return Array.from(ingredients).sort();
@@ -59,7 +59,7 @@ export class CategoryFilterComponent {
 
   allAllergenes = computed(() => {
     const allergenes = new Set<string>();
-    this.allProducts.forEach(p => {
+    this.allProducts().forEach(p => {
       p.allergenes.forEach(allerg => allergenes.add(allerg));
     });
     return Array.from(allergenes).sort();
@@ -91,7 +91,7 @@ export class CategoryFilterComponent {
 
   onIngredientsChange(ingredients: string[]): void {
     // Émettre les changements individuels pour chaque ingrédient
-    const currentIngredients = new Set(this.selectedIngredients);
+    const currentIngredients = new Set(this.selectedIngredients());
     const newIngredients = new Set(ingredients);
     
     // Ajouter les nouveaux
@@ -111,7 +111,7 @@ export class CategoryFilterComponent {
 
   onAllergeneChange(allergenes: string[]): void {
     // Émettre les changements individuels pour chaque allergène
-    const currentAllergenes = new Set(this.excludedAllergenes);
+    const currentAllergenes = new Set(this.excludedAllergenes());
     const newAllergenes = new Set(allergenes);
     
     // Ajouter les nouveaux
