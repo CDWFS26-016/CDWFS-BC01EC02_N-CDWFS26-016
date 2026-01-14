@@ -1,0 +1,86 @@
+<div class="filter-container">
+  <h3>Filtres</h3>
+
+  <div class="filters-grid">
+    <!-- Nombre de pièces -->
+    <div class="filter-item">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nombre de pièces</mat-label>
+        <mat-select [value]="selectedPiecesFilter" (selectionChange)="onPiecesChange($event.value)">
+          <mat-option [value]="null">Tous</mat-option>
+          @for (pieces of uniquePieces(); track pieces) {
+            <mat-option [value]="pieces">{{ pieces }} pièces</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Collection -->
+    <div class="filter-item">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Collection</mat-label>
+        <mat-select [value]="selectedCollectionFilter" (selectionChange)="onCollectionChange($event.value)">
+          <mat-option [value]="null">Toutes</mat-option>
+          @for (collection of collections; track collection.id) {
+            <mat-option [value]="collection.id">{{ collection.titre }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Type de prix -->
+    <div class="filter-item">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Type de prix</mat-label>
+        <mat-select [value]="useLotPrice" (selectionChange)="onUseLotPriceChange($event.value)">
+          <mat-option [value]="true">Prix au lot</mat-option>
+          <mat-option [value]="false">Prix unitaire</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Range de prix -->
+    <div class="filter-item full-width-item">
+      <label>Plage de prix ({{ priceRange[0] }}€ - {{ priceRange[1] }}€)</label>
+      <mat-slider>
+        <input matSliderStartThumb 
+          [value]="priceRange[0]" 
+          (valueChange)="onPriceRangeChange([$event, priceRange[1]])"
+          min="0" max="30">
+        <input matSliderEndThumb 
+          [value]="priceRange[1]" 
+          (valueChange)="onPriceRangeChange([priceRange[0], $event])"
+          min="0" max="30">
+      </mat-slider>
+    </div>
+
+    <!-- Ingrédients -->
+    <div class="filter-item full-width-item">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Ingrédients</mat-label>
+        <mat-select [value]="selectedIngredients" (selectionChange)="onIngredientsChange($event.value)" multiple>
+          @for (ingredient of allIngredients(); track ingredient) {
+            <mat-option [value]="ingredient">{{ ingredient }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Allergènes à exclure -->
+    <div class="filter-item full-width-item">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Sans allergènes</mat-label>
+        <mat-select [value]="excludedAllergenes" (selectionChange)="onAllergeneChange($event.value)" multiple>
+          @for (allergene of allAllergenes(); track allergene) {
+            <mat-option [value]="allergene">{{ allergene }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Réinitialiser -->
+  <button mat-raised-button color="warn" (click)="resetAllFilters()" class="reset-btn">
+    Réinitialiser filtres
+  </button>
+</div>

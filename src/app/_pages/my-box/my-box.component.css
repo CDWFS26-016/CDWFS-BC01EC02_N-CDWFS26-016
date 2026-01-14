@@ -1,0 +1,9 @@
+.mybox-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin-bottom: 1rem;
+}

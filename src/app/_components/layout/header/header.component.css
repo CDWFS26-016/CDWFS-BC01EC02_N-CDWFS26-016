@@ -1,0 +1,60 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.consumption-indicator {
+  display: flex;
+  align-items: center;
+  margin-left: 2rem;
+}
+
+.mode-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  text-transform: none;
+  font-weight: 500;
+}
+
+.mode-button mat-icon {
+  font-size: 1.2rem;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.user-section .user-name {
+  font-size: 0.9rem;
+}
+
+.auth-section {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.login-menu-container {
+  pointer-events: auto !important;
+  background-color: white;
+  border-radius: 4px;
+}
+
+::ng-deep .login-menu-container {
+  padding: 0 !important;
+}
+
+::ng-deep .mat-mdc-menu-content {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}

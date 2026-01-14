@@ -1,0 +1,19 @@
+<app-header></app-header>
+
+<main class="home-container">
+  <div class="choice-section">
+    <h1>Comment souhaitez-vous recevoir votre commande?</h1>
+    
+    <div class="choice-buttons">
+      <button mat-raised-button color="primary" class="choice-btn" (click)="setConsumptionMode('on-site')">
+        <span class="btn-label">Sur place</span>
+      </button>
+      
+      <button mat-raised-button color="accent" class="choice-btn" (click)="setConsumptionMode('takeaway')">
+        <span class="btn-label">À emporter</span>
+      </button>
+    </div>
+  </div>
+</main>
+
+<app-footer></app-footer>

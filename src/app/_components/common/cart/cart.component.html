@@ -1,0 +1,130 @@
+<div class="cart-container" [ngClass]="displayMode">
+  <!-- Mode Header: Résumé complet du panier -->
+  <ng-container *ngIf="displayMode === 'header'">
+    <div class="cart-header-summary">
+      <!-- Infos résumées -->
+      <div class="cart-header-info">
+        <span class="cart-count">{{ cartService.cartCount() }} article(s)</span>
+        <span class="cart-total">{{ cartService.cartTotal() | currency: 'EUR': 'symbol': '1.2-2' }}</span>
+      </div>
+
+      <!-- Liste simple des produits -->
+      <div class="cart-header-items">
+        <ng-container *ngIf="cartService.cartItems().length > 0">
+          <div class="header-items-list">
+            <div class="header-item" *ngFor="let cartItem of cartService.cartItems()">
+              <img
+                [src]="'/assets/img/produits/' + cartItem.product.reference_image"
+                [alt]="cartItem.product.nom"
+                onerror="this.src='/assets/img/placeholder.png'"
+                class="header-item-image"
+              />
+              <div class="header-item-info">
+                <span class="header-item-name">{{ cartItem.product.nom }}</span>
+                <span class="header-item-qty">x{{ cartItem.quantity }}</span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="cartService.cartItems().length === 0">
+          <div class="cart-empty">Panier vide</div>
+        </ng-container>
+      </div>
+
+      <!-- Lien vers la page panier -->
+      <a routerLink="/cart" class="cart-view-link">Voir le panier complet</a>
+    </div>
+  </ng-container>
+
+  <!-- Mode Full Page: Liste complète du panier -->
+  <ng-container *ngIf="displayMode === 'full-page'">
+    <div class="cart-full-page">
+      <h1>Mon panier</h1>
+
+      <ng-container *ngIf="cartService.cartItems().length > 0; else emptyCart">
+        <div class="cart-items-list">
+          <div class="cart-item" *ngFor="let cartItem of cartService.cartItems()">
+            <!-- Image et infos produit -->
+            <div class="item-image">
+              <img
+                [src]="'/assets/img/produits/' + cartItem.product.reference_image"
+                [alt]="cartItem.product.nom"
+                onerror="this.src='/assets/img/produits/placeholder.png'"
+              />
+            </div>
+
+            <div class="item-details">
+              <h3>{{ cartItem.product.nom }}</h3>
+              <p class="item-price">{{ cartItem.product.prix_lot | currency: 'EUR': 'symbol': '1.2-2' }}</p>
+            </div>
+
+            <!-- Contrôles de quantité -->
+            <div class="item-quantity-controls">
+              <button
+                mat-icon-button
+                (click)="decrementQuantity(cartItem.product.reference_produit)"
+                [disabled]="cartItem.quantity <= 1"
+                aria-label="Diminuer"
+              >
+                <mat-icon>remove</mat-icon>
+              </button>
+              <input
+                type="number"
+                [(ngModel)]="cartItem.quantity"
+                (change)="updateQuantity(cartItem.product.reference_produit, cartItem.quantity)"
+                min="1"
+              />
+              <button
+                mat-icon-button
+                (click)="incrementQuantity(cartItem.product.reference_produit)"
+                aria-label="Augmenter"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+
+            <!-- Prix total du produit -->
+            <div class="item-total">
+              {{ cartItem.product.prix_lot * cartItem.quantity | currency: 'EUR': 'symbol': '1.2-2' }}
+            </div>
+
+            <!-- Bouton supprimer -->
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="removeFromCart(cartItem.product.reference_produit)"
+              aria-label="Supprimer du panier"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <!-- Résumé final -->
+        <div class="cart-summary">
+          <div class="summary-row">
+            <span>Total articles:</span>
+            <strong>{{ cartService.cartCount() }}</strong>
+          </div>
+          <div class="summary-row total-row">
+            <span>Total:</span>
+            <strong>{{ cartService.cartTotal() | currency: 'EUR': 'symbol': '1.2-2' }}</strong>
+          </div>
+          <button mat-raised-button color="primary" class="checkout-btn">
+            Passer la commande
+          </button>
+        </div>
+      </ng-container>
+
+      <ng-template #emptyCart>
+        <div class="empty-cart">
+          <mat-icon>shopping_cart</mat-icon>
+          <p>Votre panier est vide</p>
+          <a routerLink="/catalog" mat-raised-button color="primary">
+            Continuer vos achats
+          </a>
+        </div>
+      </ng-template>
+    </div>
+  </ng-container>
+</div>

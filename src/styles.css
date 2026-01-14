@@ -1,0 +1,19 @@
+/* Import a prebuilt Angular Material theme to replace SCSS mixin-based theming */
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #6366f1;
+  --color-secondary: #8b5cf6;
+  --color-accent: #ec4899;
+}
+
+/* Global styles */
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #fff;
+  color: #111;
+}

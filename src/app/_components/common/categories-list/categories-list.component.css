@@ -1,0 +1,12 @@
+.categories-list-container {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 16px 0;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.category-item {
+  flex-shrink: 0;
+}

@@ -1,0 +1,101 @@
+<app-header></app-header>
+
+<div class="catalog-container">
+  <main class="catalog-content">
+    <div class="catalog-header">
+      <h1>Catalogue</h1>
+    </div>
+
+    <!-- Catégories en haut -->
+    <app-categories-list
+      [categories]="categories()"
+      [selectedCategoryId]="selectedCategoryId()"
+      (categorySelected)="selectCategory($event)">
+    </app-categories-list>
+
+    <!-- Bouton et Dropdown des filtres -->
+    <div class="filters-dropdown-wrapper">
+      <button mat-raised-button color="primary" (click)="toggleFilters()" class="filters-toggle-btn">
+        <span>{{ showFilters() ? '✕ Masquer' : '⚙️ Filtres' }}</span>
+      </button>
+
+      @if (showFilters()) {
+        <div class="filters-dropdown-content">
+          <app-category-filter
+            [collections]="collections()"
+            [allProducts]="allProducts()"
+            [selectedPiecesFilter]="selectedPiecesFilter()"
+            [selectedCollectionFilter]="selectedCollectionFilter()"
+            [priceRange]="priceRange()"
+            [useLotPrice]="useLotPrice()"
+            [selectedIngredients]="selectedIngredients()"
+            [excludedAllergenes]="excludedAllergenes()"
+            (piecesFilterChanged)="selectedPiecesFilter.set($event)"
+            (collectionFilterChanged)="selectedCollectionFilter.set($event)"
+            (priceRangeChanged)="priceRange.set($event)"
+            (useLotPriceChanged)="useLotPrice.set($event)"
+            (ingredientToggled)="toggleIngredient($event)"
+            (allergeneToggled)="toggleAllergene($event)"
+            (filtersReset)="resetFilters()">
+          </app-category-filter>
+        </div>
+      }
+    </div>
+
+    <div class="catalog-layout">
+      <!-- Titre de la catégorie sélectionnée -->
+      @if (selectedCategory(); as category) {
+        <h2 class="selected-category-title">{{ category.titre }}</h2>
+      } @else {
+        <h2 class="selected-category-title">Tous nos produits</h2>
+      }
+
+      <!-- Grille de produits -->
+      <div class="products-grid">
+        @if (filteredProducts().length > 0) {
+          @for (product of filteredProducts(); track product.reference_produit) {
+            <mat-card class="product-card">
+              <div class="product-image">
+                <img [src]="'/assets/img/produits/' + product.reference_image" 
+                  [alt]="product.nom"
+                  onerror="this.src='/assets/img/produits/placeholder.png'">
+              </div>
+              <mat-card-header>
+                <mat-card-title class="product-name">{{ product.nom }}</mat-card-title>
+                <mat-card-subtitle class="product-pieces">{{ product.nombre_pieces }} pièces</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <p class="product-description">{{ product.description }}</p>
+                <div class="product-prices">
+                  <span class="price-lot">{{ product.prix_lot }}€ lot</span>
+                  <span class="price-unit">{{ product.prix_unitaire }}€/pce</span>
+                </div>
+                @if (product.collection) {
+                  <p class="product-collection">{{ getCollectionName(product.collection) }}</p>
+                }
+                @if (product.allergenes.length > 0) {
+                  <p class="product-allergenes">⚠️ {{ product.allergenes.join(', ') }}</p>
+                }
+              </mat-card-content>
+              <mat-card-footer>
+                <button mat-raised-button color="primary" class="add-to-cart" (click)="addToCart(product.reference_produit)">
+                  Ajouter au panier
+                </button>
+              </mat-card-footer>
+            </mat-card>
+          }
+        } @else {
+          <div class="no-products">
+            <p>Aucun produit ne correspond à vos filtres.</p>
+          </div>
+        }
+      </div>
+
+      <!-- Nombre de résultats -->
+      <div class="results-info">
+        {{ filteredProducts().length }} produit(s) trouvé(s)
+      </div>
+    </div>
+  </main>
+</div>
+<app-footer></app-footer>

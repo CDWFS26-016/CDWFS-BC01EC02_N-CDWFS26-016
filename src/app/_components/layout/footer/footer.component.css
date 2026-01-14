@@ -1,0 +1,18 @@
+.footer-toolbar {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+}
+
+.footer-content {
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-content .version {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  font-style: italic;
+}

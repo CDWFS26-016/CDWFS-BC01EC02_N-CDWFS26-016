@@ -1,0 +1,40 @@
+<form (ngSubmit)="login()" class="login-form">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" [(ngModel)]="email" name="email" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Mot de passe</mat-label>
+    <input matInput type="password" [(ngModel)]="password" name="password" required />
+  </mat-form-field>
+
+  @if (errorMessage) {
+    <div class="error-message">
+      {{ errorMessage }}
+    </div>
+  }
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="isLoading" class="full-width">
+    @if (!isLoading) {
+      <span>Se connecter</span>
+    } @else {
+      <span>
+        <mat-spinner diameter="20"></mat-spinner>
+        Connexion en cours...
+      </span>
+    }
+  </button>
+</form>
+
+<div class="signup-link">
+  <p>Pas encore de compte? <a routerLink="/login/create-account">Créer un compte</a></p>
+</div>
+
+<mat-list class="demo-users">
+  <h3 mat-subheader>Utilisateurs de démo</h3>
+  <mat-list-item>jean@test.com (Admin)</mat-list-item>
+  <mat-list-item>marie@test.com (Gérant)</mat-list-item>
+  <mat-list-item>pierre@test.com (Utilisateur)</mat-list-item>
+  <h3 mat-subheader style="margin-top: 0.5rem;">Mot de passe: password</h3>
+</mat-list>

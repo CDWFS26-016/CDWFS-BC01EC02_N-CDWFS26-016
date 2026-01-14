@@ -1,0 +1,8 @@
+<mat-toolbar color="primary" class="footer-toolbar">
+  <span class="footer-content">
+    &copy; {{ year }} {{ appName }}. All rights reserved.
+    @if (isAdmin) {
+      <span class="version">v{{ appVersion }}</span>
+    }
+  </span>
+</mat-toolbar>
