@@ -50,6 +50,8 @@ src/app/
 ### Tailwind CSS 4 - Intégration complète
 
 L'application utilise **Tailwind CSS 4** de manière complète avec classes inline dans les templates HTML.
+PAR CONTRE, J'AVAIS FAIS UN TRUC PROPRE AVEC ANGULAR MATERIAL ET DU CUSTOM ET TAILWIND C'EST MOCHE, JE SUIS DEG BONJOUR
+Ah, et j'ai pas fais My Box finalement, à cause de tailwind car j'ai jamais appris le machin :D
 
 #### Imports et configuration
 
