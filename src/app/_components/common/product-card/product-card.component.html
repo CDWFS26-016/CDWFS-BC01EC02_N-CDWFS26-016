@@ -1,37 +1,36 @@
-<div class="product-card-wrapper">
-  <mat-card class="product-card" [routerLink]="['/product', getProductSlug()]">
+<div class="h-full">
+  <mat-card class="h-full flex flex-col cursor-pointer transition-all duration-300 relative hover:shadow-2xl hover:-translate-y-2 hover:scale-105 overflow-hidden group" [routerLink]="['/product', getProductSlug()]">
     <!-- Image du produit -->
-    <div class="product-image">
+    <div class="relative overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 group-hover:from-gray-200 group-hover:to-gray-300 transition-all duration-300">
       <img
         [src]="'/assets/img/produits/' + product().reference_image"
         [alt]="product().nom"
         onerror="this.src='/assets/img/produits/placeholder.png'"
+        class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
       />
     </div>
 
     <!-- Contenu de la carte -->
-    <mat-card-header>
-      <mat-card-title class="product-name">{{ product().nom }}</mat-card-title>
-      <mat-card-subtitle class="product-pieces">{{ product().nombre_pieces }} pièces</mat-card-subtitle>
+    <mat-card-header class="pb-3 pt-4 px-4 mb-0">
+      <mat-card-title class="text-base font-semibold text-gray-800 m-0 whitespace-nowrap overflow-hidden text-ellipsis">{{ product().nom }}</mat-card-title>
+      <mat-card-subtitle class="text-sm text-gray-600 mt-1">{{ product().nombre_pieces }} pièces</mat-card-subtitle>
     </mat-card-header>
 
-    <mat-card-content>
-      <p class="product-description">{{ product().description }}</p>
+    <mat-card-content class="flex-1 px-4 pb-3 overflow-hidden">
+      <!-- Collection -->
+      @if (getCollectionName()) {
+        <p class="text-xs text-gray-600 my-2 bg-gray-100 px-2 py-1 rounded inline-block">Collection : {{ getCollectionName() }}</p>
+      }
 
       <!-- Prix -->
-      <div class="product-prices">
-        <span class="price-lot">{{ product().prix_lot | currency: 'EUR': 'symbol': '1.2-2' }}</span>
-        <span class="price-unit">{{ product().prix_unitaire | currency: 'EUR': 'symbol': '1.2-2' }}/pce</span>
+      <div class="flex gap-3 font-medium my-3 p-2 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg">
+        <span class="text-green-700 text-lg font-bold">{{ product().prix_lot | currency: 'EUR': 'symbol': '1.2-2' }}</span>
+        <span class="text-gray-600 text-sm font-medium">{{ product().prix_unitaire | currency: 'EUR': 'symbol': '1.2-2' }}/pce</span>
       </div>
-
-      <!-- Collection
-      @if (product().collection) {
-        <p class="product-collection">{{ product().collection }}</p>
-      } -->
 
       <!-- Allergènes -->
       @if (product().allergenes.length > 0) {
-        <p class="product-allergenes">⚠️ {{ product().allergenes.join(', ') }}</p>
+        <p class="text-xs text-red-600 my-2">⚠️ {{ product().allergenes.join(', ') }}</p>
       }
     </mat-card-content>
 
@@ -40,7 +39,7 @@
       mat-fab
       size="small"
       color="primary"
-      class="add-to-cart-btn"
+      class="absolute bottom-3 right-3 z-10 shadow-md hover:shadow-lg"
       (click)="onAddToCart($event)"
       aria-label="Ajouter au panier"
       title="Ajouter au panier"

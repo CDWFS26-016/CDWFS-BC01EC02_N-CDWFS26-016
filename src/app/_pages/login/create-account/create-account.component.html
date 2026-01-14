@@ -1,57 +1,60 @@
 <app-header></app-header>
 
-<div class="login-container">
-  <mat-card class="login-card">
-    <mat-card-header>
-      <mat-card-title>Créer un compte</mat-card-title>
+<div class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-50 via-white to-blue-50">
+  <mat-card class="w-full max-w-md shadow-2xl rounded-2xl overflow-hidden">
+    <mat-card-header class="mb-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white p-4">
+      <mat-card-title class="text-2xl font-bold">Créer un compte</mat-card-title>
+      <p class="text-green-100 text-sm mt-2">Rejoignez notre communauté</p>
     </mat-card-header>
 
-    <mat-card-content>
-      <form (ngSubmit)="register()" class="login-form">
-        <div class="form-row">
-          <mat-form-field appearance="outline" class="form-field">
+    <mat-card-content class="pt-6">
+      <form (ngSubmit)="register()" class="flex flex-col gap-4">
+        <div class="grid grid-cols-2 gap-4">
+          <mat-form-field appearance="outline" class="w-full">
             <mat-label>Prénom</mat-label>
             <input matInput type="text" [(ngModel)]="prenom" name="prenom" required />
           </mat-form-field>
 
-          <mat-form-field appearance="outline" class="form-field">
+          <mat-form-field appearance="outline" class="w-full">
             <mat-label>Nom</mat-label>
             <input matInput type="text" [(ngModel)]="nom" name="nom" required />
           </mat-form-field>
         </div>
 
-        <mat-form-field appearance="outline" class="full-width">
+        <mat-form-field appearance="outline" class="w-full">
           <mat-label>Email</mat-label>
           <input matInput type="email" [(ngModel)]="email" name="email" required />
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="full-width">
+        <mat-form-field appearance="outline" class="w-full">
           <mat-label>Mot de passe</mat-label>
           <input matInput type="password" [(ngModel)]="password" name="password" required />
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="full-width">
+        <mat-form-field appearance="outline" class="w-full">
           <mat-label>Confirmer le mot de passe</mat-label>
           <input matInput type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required />
         </mat-form-field>
 
         @if (errorMessage) {
-          <div class="error-message">
-            {{ errorMessage }}
+          <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-3 rounded-lg text-sm flex items-start gap-2">
+            <mat-icon class="text-red-500 mt-0.5">error_outline</mat-icon>
+            <span>{{ errorMessage }}</span>
           </div>
         }
 
         @if (successMessage) {
-          <div class="success-message">
-            {{ successMessage }}
+          <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-3 rounded-lg text-sm flex items-start gap-2">
+            <mat-icon class="text-green-500 mt-0.5">check_circle_outline</mat-icon>
+            <span>{{ successMessage }}</span>
           </div>
         }
 
-        <button mat-raised-button color="primary" type="submit" [disabled]="isLoading" class="full-width">
+        <button mat-raised-button color="accent" type="submit" [disabled]="isLoading" class="w-full font-bold py-3 rounded-lg hover:shadow-lg transition-all duration-300">
           @if (!isLoading) {
-            <span>Créer un compte</span>
+            <span>✓ Créer un compte</span>
           } @else {
-            <span>
+            <span class="flex items-center justify-center gap-2">
               <mat-spinner diameter="20"></mat-spinner>
               Création en cours...
             </span>
@@ -59,8 +62,8 @@
         </button>
       </form>
 
-      <div class="signup-link">
-        <p>Déjà un compte? <a routerLink="/login">Se connecter</a></p>
+      <div class="text-center mt-6 pt-6 border-t border-gray-200">
+        <p class="m-0 text-gray-700">Déjà un compte? <a routerLink="/login" class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent no-underline font-bold hover:opacity-80 transition-opacity">Se connecter</a></p>
       </div>
     </mat-card-content>
   </mat-card>

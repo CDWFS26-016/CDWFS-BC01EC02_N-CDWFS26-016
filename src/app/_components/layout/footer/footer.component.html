@@ -1,8 +1,44 @@
-<mat-toolbar color="primary" class="footer-toolbar">
-  <span class="footer-content">
-    &copy; {{ year }} {{ appName }}. All rights reserved.
-    @if (isAdmin) {
-      <span class="version">v{{ appVersion }}</span>
-    }
-  </span>
+<mat-toolbar color="primary" class="flex justify-center mt-16 shadow-lg sticky bottom-0 z-40">
+  <div class="flex items-center justify-between w-full max-w-7xl px-4">
+    <!-- Infos app -->
+    <span class="text-xs flex items-center gap-2 text-white font-medium">
+      &copy; {{ year }} <strong>{{ appName }}</strong>
+      @if (isAdmin) {
+        <span class="opacity-70 italic">v{{ appVersion }}</span>
+      }
+    </span>
+
+    <!-- Navigation Icônes -->
+    <div class="flex items-center gap-6">
+      <!-- Catalogue -->
+      <button mat-icon-button routerLink="/catalog" matTooltip="Catalogue" class="text-white hover:scale-110 transition-transform">
+        <mat-icon class="text-2xl">restaurant_menu</mat-icon>
+      </button>
+
+      <!-- Login/Compte -->
+      @if (!isAuthenticated()) {
+        <button mat-icon-button routerLink="/login" matTooltip="Connexion" class="text-white hover:scale-110 transition-transform">
+          <mat-icon class="text-2xl">login</mat-icon>
+        </button>
+      } @else {
+        <button mat-icon-button [matMenuTriggerFor]="accountMenu" matTooltip="Mon compte" class="text-white hover:scale-110 transition-transform">
+          <mat-icon class="text-2xl">account_circle</mat-icon>
+        </button>
+        <mat-menu #accountMenu="matMenu" class="shadow-lg">
+          <div mat-menu-item disabled class="text-sm font-medium text-gray-700">
+            {{ currentUser()?.prenom_user }} {{ currentUser()?.nom_user }}
+          </div>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Déconnexion</span>
+          </button>
+        </mat-menu>
+      }
+
+      <!-- Home -->
+      <button mat-icon-button routerLink="/home" matTooltip="Accueil" class="text-white hover:scale-110 transition-transform">
+        <mat-icon class="text-2xl">home</mat-icon>
+      </button>
+    </div>
+  </div>
 </mat-toolbar>

@@ -1,69 +1,80 @@
-<div class="cart-container" [ngClass]="displayMode()">
-  <!-- Mode Header: Résumé complet du panier -->
+<div>
+  <!-- Mode Header: Résumé compact du panier -->
   @if (displayMode() === 'header') {
-    <div class="cart-header-summary">
+    <div class="flex flex-col gap-3 p-3 bg-white/5 rounded border border-white/10 min-w-64 max-w-96 transition-colors duration-300 hover:bg-white/8">
       <!-- Infos résumées -->
-      <div class="cart-header-info">
-        <span class="cart-count">{{ cartService.cartCount() }} article(s)</span>
-        <span class="cart-total">{{ cartService.cartTotal() | currency: 'EUR': 'symbol': '1.2-2' }}</span>
+      <div class="flex justify-between items-center pb-2 border-b border-white/10 flex-wrap gap-2">
+        <span class="text-sm opacity-90">{{ cartService.cartCount() }} article(s)</span>
+        @if (cartService.isAuthenticated()) {
+          <div class="flex items-center gap-1 justify-end flex-1">
+            <span class="text-sm opacity-70 line-through">{{ cartService.cartTotal() | currency: 'EUR': 'symbol': '1.2-2' }}</span>
+            <span class="bg-green-600 text-white px-1.5 py-0.5 rounded-full text-xs font-semibold">-2%</span>
+            <span class="font-semibold text-green-400">{{ cartService.cartTotalAfterDiscount() | currency: 'EUR': 'symbol': '1.2-2' }}</span>
+          </div>
+        } @else {
+          <span class="font-semibold">{{ cartService.cartTotal() | currency: 'EUR': 'symbol': '1.2-2' }}</span>
+        }
       </div>
 
       <!-- Liste simple des produits -->
-      <div class="cart-header-items">
+      <div class="flex-1 overflow-y-auto max-h-72">
         @if (cartService.cartItems().length > 0) {
-          <div class="header-items-list">
+          <div class="flex flex-col gap-1">
             @for (cartItem of cartService.cartItems(); track cartItem.product.reference_produit) {
-              <div class="header-item">
+              <div class="flex gap-2 p-1.5 bg-white/3 rounded hover:bg-white/8 transition-colors duration-200">
                 <img
                   [src]="'/assets/img/produits/' + cartItem.product.reference_image"
                   [alt]="cartItem.product.nom"
                   onerror="this.src='/assets/img/placeholder.png'"
-                  class="header-item-image"
+                  class="w-12 h-12 object-cover rounded flex-shrink-0"
                 />
-                <div class="header-item-info">
-                  <span class="header-item-name">{{ cartItem.product.nom }}</span>
-                  <span class="header-item-price">{{ cartItem.product.prix_lot | currency: 'EUR': 'symbol': '1.2-2' }}</span>
-                  <span class="header-item-qty">Qté: x{{ cartItem.quantity }}</span>
+                <div class="flex flex-col gap-0.5 flex-1 min-w-0">
+                  <span class="text-xs font-medium line-clamp-2">{{ cartItem.product.nom }}</span>
+                  <span class="text-xs text-green-400 font-semibold">{{ cartItem.product.prix_lot | currency: 'EUR': 'symbol': '1.2-2' }}</span>
+                  <span class="text-xs text-gray-400">Qté: x{{ cartItem.quantity }}</span>
                 </div>
               </div>
             }
           </div>
         }
         @if (cartService.cartItems().length === 0) {
-          <div class="cart-empty">Panier vide</div>
+          <div class="text-center py-5 text-sm opacity-60">Panier vide</div>
         }
       </div>
 
       <!-- Lien vers la page panier -->
-      <a routerLink="/cart" class="cart-view-link">Voir le panier complet</a>
+      <a routerLink="/cart" class="block text-white no-underline bg-green-600 hover:bg-green-700 p-2 rounded text-center text-sm font-medium transition-colors duration-200">
+        Voir le panier complet
+      </a>
     </div>
   }
 
   <!-- Mode Full Page: Liste complète du panier -->
   @if (displayMode() === 'full-page') {
-    <div class="cart-full-page">
-      <h1>Mon panier</h1>
+    <div class="max-w-7xl mx-auto px-4 py-8">
+      <h1 class="text-3xl font-bold mb-8">Mon panier</h1>
 
       @if (cartService.cartItems().length > 0) {
-        <div class="cart-items-list">
+        <div class="flex flex-col gap-4">
           @for (cartItem of cartService.cartItems(); track cartItem.product.reference_produit) {
-            <div class="cart-item">
+            <div class="flex gap-4 p-4 bg-gray-50 rounded-lg items-start">
               <!-- Image et infos produit -->
-              <div class="item-image">
+              <div class="flex-shrink-0 w-24 h-24">
                 <img
                   [src]="'/assets/img/produits/' + cartItem.product.reference_image"
                   [alt]="cartItem.product.nom"
                   onerror="this.src='/assets/img/produits/placeholder.png'"
+                  class="w-full h-full object-cover rounded"
                 />
               </div>
 
-              <div class="item-details">
-                <h3>{{ cartItem.product.nom }}</h3>
-                <p class="item-price">{{ cartItem.product.prix_lot | currency: 'EUR': 'symbol': '1.2-2' }}</p>
+              <div class="flex-1">
+                <h3 class="text-lg font-semibold">{{ cartItem.product.nom }}</h3>
+                <p class="text-green-600 font-semibold">{{ cartItem.product.prix_lot | currency: 'EUR': 'symbol': '1.2-2' }}</p>
               </div>
 
               <!-- Contrôles de quantité -->
-              <div class="item-quantity-controls">
+              <div class="flex items-center gap-2">
                 <button
                   mat-icon-button
                   (click)="decrementQuantity(cartItem.product.reference_produit)"
@@ -77,6 +88,7 @@
                   [(ngModel)]="cartItem.quantity"
                   (change)="updateQuantity(cartItem.product.reference_produit, cartItem.quantity)"
                   min="1"
+                  class="w-12 text-center border rounded px-2 py-1"
                 />
                 <button
                   mat-icon-button
@@ -88,7 +100,7 @@
               </div>
 
               <!-- Prix total du produit -->
-              <div class="item-total">
+              <div class="text-right min-w-24">
                 {{ cartItem.product.prix_lot * cartItem.quantity | currency: 'EUR': 'symbol': '1.2-2' }}
               </div>
 
@@ -106,23 +118,44 @@
         </div>
 
         <!-- Résumé final -->
-        <div class="cart-summary">
-          <div class="summary-row">
+        <div class="mt-8 p-6 bg-gray-100 rounded-lg max-w-md ml-auto">
+          <div class="flex justify-between mb-2">
             <span>Total articles:</span>
             <strong>{{ cartService.cartCount() }}</strong>
           </div>
-          <div class="summary-row total-row">
-            <span>Total:</span>
+          <div class="flex justify-between mb-2">
+            <span>Sous-total:</span>
             <strong>{{ cartService.cartTotal() | currency: 'EUR': 'symbol': '1.2-2' }}</strong>
           </div>
-          <button mat-raised-button color="primary" class="checkout-btn">
+          @if (cartService.isAuthenticated()) {
+            <div class="flex justify-between mb-2 text-green-600">
+              <span class="flex items-center gap-1">
+                <mat-icon class="text-base">local_offer</mat-icon>
+                Réduction client (2%):
+              </span>
+              <strong class="text-green-600">-{{ cartService.discountAmount() | currency: 'EUR': 'symbol': '1.2-2' }}</strong>
+            </div>
+            <div class="flex justify-between pt-2 border-t border-gray-300 text-lg font-bold">
+              <span>Total TTC:</span>
+              <strong>{{ cartService.cartTotalAfterDiscount() | currency: 'EUR': 'symbol': '1.2-2' }}</strong>
+            </div>
+          } @else {
+            <div class="flex justify-between pt-2 border-t border-gray-300 text-lg font-bold">
+              <span>Total:</span>
+              <strong>{{ cartService.cartTotal() | currency: 'EUR': 'symbol': '1.2-2' }}</strong>
+            </div>
+            <div class="text-sm mt-3 p-2 bg-blue-100 text-blue-800 rounded">
+              💡 Connectez-vous pour bénéficier de -2%!
+            </div>
+          }
+          <button mat-raised-button color="primary" class="w-full mt-4">
             Passer la commande
           </button>
         </div>
       } @else {
-        <div class="empty-cart">
-          <mat-icon>shopping_cart</mat-icon>
-          <p>Votre panier est vide</p>
+        <div class="flex flex-col items-center justify-center gap-4 py-12 text-center">
+          <mat-icon class="text-6xl text-gray-400">shopping_cart</mat-icon>
+          <p class="text-lg text-gray-600">Votre panier est vide</p>
           <a routerLink="/catalog" mat-raised-button color="primary">
             Continuer vos achats
           </a>

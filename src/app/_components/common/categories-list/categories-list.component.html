@@ -1,16 +1,16 @@
-<div class="categories-list-container">
+<div class="flex gap-3 items-center py-6 px-4 overflow-x-auto scroll-smooth bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg shadow-sm border border-indigo-200">
   <app-category-card
     [category]="allCategory"
     [isSelected]="selectedCategoryId() === null"
     (clicked)="onCategoryClick(null)"
-    class="category-item">
+    class="flex-shrink-0">
   </app-category-card>
   @for (category of categories(); track category.id) {
     <app-category-card
       [category]="category"
       [isSelected]="selectedCategoryId() === category.id"
       (clicked)="onCardClick($event)"
-      class="category-item">
+      class="flex-shrink-0">
     </app-category-card>
   }
 </div>

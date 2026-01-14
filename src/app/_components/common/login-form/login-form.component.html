@@ -1,40 +1,29 @@
-<form (ngSubmit)="login()" class="login-form">
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Email</mat-label>
+<form (ngSubmit)="login()" class="flex flex-col gap-4">
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>📧 Email</mat-label>
     <input matInput type="email" [(ngModel)]="email" name="email" required />
   </mat-form-field>
 
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Mot de passe</mat-label>
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>🔐 Mot de passe</mat-label>
     <input matInput type="password" [(ngModel)]="password" name="password" required />
   </mat-form-field>
 
   @if (errorMessage) {
-    <div class="error-message">
-      {{ errorMessage }}
+    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-3 rounded-lg text-sm flex items-start gap-2">
+      <mat-icon class="text-red-500 mt-0.5">error_outline</mat-icon>
+      <span>{{ errorMessage }}</span>
     </div>
   }
 
-  <button mat-raised-button color="primary" type="submit" [disabled]="isLoading" class="full-width">
+  <button mat-raised-button color="primary" type="submit" [disabled]="isLoading" class="w-full font-bold py-3 rounded-lg hover:shadow-lg transition-all duration-300">
     @if (!isLoading) {
-      <span>Se connecter</span>
+      <span>✓ Se connecter</span>
     } @else {
-      <span>
+      <span class="flex items-center justify-center gap-2">
         <mat-spinner diameter="20"></mat-spinner>
         Connexion en cours...
       </span>
     }
   </button>
 </form>
-
-<div class="signup-link">
-  <p>Pas encore de compte? <a routerLink="/login/create-account">Créer un compte</a></p>
-</div>
-
-<mat-list class="demo-users">
-  <h3 mat-subheader>Utilisateurs de démo</h3>
-  <mat-list-item>jean@test.com (Admin)</mat-list-item>
-  <mat-list-item>marie@test.com (Gérant)</mat-list-item>
-  <mat-list-item>pierre@test.com (Utilisateur)</mat-list-item>
-  <h3 mat-subheader style="margin-top: 0.5rem;">Mot de passe: password</h3>
-</mat-list>

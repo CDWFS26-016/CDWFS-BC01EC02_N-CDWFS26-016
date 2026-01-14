@@ -1,10 +1,21 @@
 <button 
   mat-button 
-  class="category-card"
-  [class.selected]="isSelected()"
-  (click)="onCardClick()">
-  <div class="category-circle">
-    <img [src]="getImagePath()" [alt]="category().titre" class="category-image">
+  class="flex flex-col items-center gap-2 p-3 rounded-xl transition-all duration-300 bg-white border-2 border-gray-200 min-w-28 text-center no-underline hover:shadow-lg hover:scale-105 hover:-translate-y-1"
+  [class.border-indigo-500]="isSelected()"
+  [class.bg-gradient-to-br]="isSelected()"
+  [class.from-indigo-50]="isSelected()"
+  [class.to-purple-50]="isSelected()"
+  [class.shadow-lg]="isSelected()"
+  (click)="onCardClick()"
+>
+  <div class="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center overflow-hidden flex-shrink-0 shadow-md transition-transform duration-300 group-hover:scale-110">
+    <img [src]="getImagePath()" [alt]="category().titre" class="w-full h-full object-cover">
   </div>
-  <span class="category-label">{{ category().titre }}</span>
+  <span 
+    class="text-xs text-center font-medium text-gray-700 line-clamp-2 max-w-24 transition-colors duration-300"
+    [class.text-indigo-600]="isSelected()"
+    [class.font-bold]="isSelected()"
+  >
+    {{ category().titre }}
+  </span>
 </button>

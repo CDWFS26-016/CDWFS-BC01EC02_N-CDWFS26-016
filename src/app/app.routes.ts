@@ -19,17 +19,13 @@ export const routes: Routes = [
     loadComponent: () => import('./_pages/product/product.component').then((m) => m.ProductComponent),
   },
   {
-    path: 'my-box',
-    loadComponent: () => import('./_pages/my-box/my-box.component').then((m) => m.MyBoxComponent),
-    canActivate: [authGuard],
-  },
-  {
     path: 'cart',
     loadComponent: () => import('./_pages/cart/cart.component').then((m) => m.CartComponent),
   },
   {
     path: 'logout',
     loadComponent: () => import('./_pages/logout/logout.component').then((m) => m.LogoutComponent),
+    canActivate: [authGuard],
   },
   {
     path: '404',

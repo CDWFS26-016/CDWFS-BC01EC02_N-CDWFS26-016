@@ -21,7 +21,7 @@ import { Category, Product, Collection } from '../../../_models';
     MatButtonModule
   ],
   templateUrl: './category-filter.component.html',
-  styleUrl: './category-filter.component.css'
+  styles: [],
 })
 export class CategoryFilterComponent {
   categories = input<Category[]>([]);

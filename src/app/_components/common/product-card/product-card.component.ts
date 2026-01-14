@@ -6,14 +6,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { Product } from '../../../_models';
 import { CatalogService } from '../../../_services';
-import './product-card.component.css';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
   imports: [CommonModule, RouterLink, MatButtonModule, MatIconModule, MatCardModule],
   templateUrl: './product-card.component.html',
-  styleUrl: './product-card.component.css'
+  styles: [],
 })
 export class ProductCardComponent {
   product = input.required<Product>();
@@ -24,6 +23,12 @@ export class ProductCardComponent {
 
   getProductSlug(): string {
     return this.catalogService.getProductSlug(this.product());
+  }
+
+  getCollectionName(): string {
+    if (!this.product().collection) return '';
+    const collection = this.catalogService.collections().find(c => c.id === this.product().collection);
+    return collection?.titre || '';
   }
 
   onAddToCart(event: Event): void {

@@ -5,6 +5,7 @@ import { CatalogService, CartService } from '../../_services';
 import { Product } from '../../_models';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,10 +19,11 @@ import Swal from 'sweetalert2';
     CategoriesListComponent,
     ProductCardComponent,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule
   ],
   templateUrl: './catalog.component.html',
-  styleUrl: './catalog.component.css'
+  styles: [],
 })
 export class CatalogComponent {
   // Signal pour afficher/masquer les filtres

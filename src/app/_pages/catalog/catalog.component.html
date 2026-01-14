@@ -1,9 +1,10 @@
 <app-header></app-header>
 
-<div class="catalog-container">
-  <main class="catalog-content">
-    <div class="catalog-header">
-      <h1>Catalogue</h1>
+<div class="min-h-[calc(100vh-120px)] py-8 bg-gradient-to-br from-white via-gray-50 to-blue-50">
+  <main class="max-w-7xl mx-auto px-4">
+    <div class="mb-8 animate-fade-in">
+      <h1 class="text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Catalogue</h1>
+      <p class="text-gray-600 mt-2">Découvrez nos délicieuses spécialités</p>
     </div>
 
     <!-- Catégories en haut -->
@@ -14,13 +15,14 @@
     </app-categories-list>
 
     <!-- Bouton et Dropdown des filtres -->
-    <div class="filters-dropdown-wrapper">
-      <button mat-raised-button color="primary" (click)="toggleFilters()" class="filters-toggle-btn">
-        <span>{{ showFilters() ? '✕ Masquer' : '⚙️ Filtres' }}</span>
+    <div class="mb-6 relative">
+      <button mat-raised-button color="primary" (click)="toggleFilters()" class="w-full py-3 px-4 text-base font-bold rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl shadow-lg uppercase tracking-wide">
+        <mat-icon class="inline mr-2">{{ showFilters() ? 'close' : 'tune' }}</mat-icon>
+        <span>{{ showFilters() ? 'Masquer les filtres' : 'Afficher les filtres' }}</span>
       </button>
 
       @if (showFilters()) {
-        <div class="filters-dropdown-content">
+        <div class="mt-3 p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl animate-in slide-in-from-top-2 shadow-lg border border-gray-200">
           <app-category-filter
             [collections]="collections()"
             [allProducts]="allProducts()"
@@ -42,16 +44,22 @@
       }
     </div>
 
-    <div class="catalog-layout">
-      <!-- Titre de la catégorie sélectionnée -->
-      @if (selectedCategory(); as category) {
-        <h2 class="selected-category-title">{{ category.titre }}</h2>
-      } @else {
-        <h2 class="selected-category-title">Tous nos produits</h2>
-      }
-
+    <div class="w-full">
+      <!-- Titre de la catégorie sélectionnée + résultats -->
+      <div class="mb-6">
+        @if (selectedCategory(); as category) {
+          <h2 class="text-2xl font-semibold mb-2">{{ category.titre }}</h2>
+        } @else {
+          <h2 class="text-2xl font-semibold mb-2">Tous nos produits</h2>
+        }
+        <!-- Nombre de résultats -->
+        <div class="text-sm text-gray-600">
+          {{ filteredProducts().length }} produit(s) trouvé(s)
+        </div>
+      </div>
+      
       <!-- Grille de produits -->
-      <div class="products-grid">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         @if (filteredProducts().length > 0) {
           @for (product of filteredProducts(); track product.reference_produit) {
             <app-product-card
@@ -60,16 +68,12 @@
             </app-product-card>
           }
         } @else {
-          <div class="no-products">
-            <p>Aucun produit ne correspond à vos filtres.</p>
+          <div class="col-span-full text-center py-12">
+            <p class="text-gray-600">Aucun produit ne correspond à vos filtres.</p>
           </div>
         }
       </div>
 
-      <!-- Nombre de résultats -->
-      <div class="results-info">
-        {{ filteredProducts().length }} produit(s) trouvé(s)
-      </div>
     </div>
   </main>
 </div>

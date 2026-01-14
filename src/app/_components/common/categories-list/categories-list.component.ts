@@ -9,7 +9,7 @@ import { Category } from '../../../_models';
   standalone: true,
   imports: [CommonModule, MatButtonModule, CategoryCardComponent],
   templateUrl: './categories-list.component.html',
-  styleUrl: './categories-list.component.css'
+  styles: [],
 })
 export class CategoriesListComponent {
   categories = input<Category[]>([]);
@@ -20,7 +20,7 @@ export class CategoriesListComponent {
   allCategory: Category = {
     id: 0,
     titre: 'Tous',
-    description: 'Tous les produits'
+    description: 'Tous les produits',
   };
 
   onCategoryClick(category: Category | null): void {

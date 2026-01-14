@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [RouterLink, MatCardModule, MatButtonModule, MatIconModule],
   templateUrl: './error404.component.html',
-  styleUrl: './error404.component.css'
+  styles: [],
 })
 export class Error404Component {
 

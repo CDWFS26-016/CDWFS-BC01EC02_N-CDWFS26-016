@@ -1,10 +1,12 @@
 <app-header></app-header>
 
-<main class="cart-page-wrapper">
+<main class="min-h-[calc(100vh-200px)] p-5 bg-gradient-to-br from-white via-gray-50 to-blue-50 relative">
+  <!-- Bouton retour -->
+  <button mat-icon-button class="text-gray-600 mb-4 hover:text-indigo-600 transition-colors" routerLink="/catalog" title="Retour au catalogue">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
   <app-cart displayMode="full-page"></app-cart>
-  <div class="cart-actions">
-    <a routerLink="/catalog" class="continue-shopping-btn">Continuer vos achats</a>
-  </div>
 </main>
 
 <app-footer></app-footer>

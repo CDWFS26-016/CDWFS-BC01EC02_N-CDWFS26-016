@@ -1,16 +1,16 @@
-<div class="error-404-container">
-  <mat-card class="error-404-card">
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+  <mat-card class="w-full max-w-md text-center">
     <mat-card-header>
-      <mat-card-title>
-        <mat-icon class="error-icon">error_outline</mat-icon>
-        404
+      <mat-card-title class="flex items-center justify-center gap-2">
+        <mat-icon class="text-5xl text-red-600">error_outline</mat-icon>
+        <span class="text-4xl font-bold">404</span>
       </mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
-      <h2>Page non trouvée</h2>
-      <p>Désolé, la page que vous recherchez n'existe pas.</p>
-      <button mat-raised-button color="primary" routerLink="/" class="full-width">
+      <h2 class="text-2xl font-semibold mt-4 mb-2">Page non trouvée</h2>
+      <p class="text-gray-600 mb-6">Désolé, la page que vous recherchez n'existe pas.</p>
+      <button mat-raised-button color="primary" routerLink="/" class="w-full">
         Retour à l'accueil
       </button>
     </mat-card-content>

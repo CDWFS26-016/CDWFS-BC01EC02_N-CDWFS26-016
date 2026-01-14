@@ -7,15 +7,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent, FooterComponent } from '../../../_components';
 import { AuthService } from '../../../_services';
 
 @Component({
   selector: 'app-create-account',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule, HeaderComponent, FooterComponent],
+  imports: [CommonModule, FormsModule, RouterLink, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule, MatIconModule, HeaderComponent, FooterComponent],
   templateUrl: './create-account.component.html',
-  styleUrl: './create-account.component.css'
+  styles: [],
 })
 export class CreateAccountComponent {
   email = '';

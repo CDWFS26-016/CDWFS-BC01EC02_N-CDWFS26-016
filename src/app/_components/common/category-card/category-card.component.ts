@@ -8,7 +8,7 @@ import { Category } from '../../../_models';
   standalone: true,
   imports: [CommonModule, MatButtonModule],
   templateUrl: './category-card.component.html',
-  styleUrl: './category-card.component.css'
+  styles: [],
 })
 export class CategoryCardComponent {
   category = input.required<Category>();

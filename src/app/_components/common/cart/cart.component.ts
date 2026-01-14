@@ -5,14 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CartService } from '../../../_services';
-import './cart.component.css';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule, MatButtonModule, MatIconModule],
   templateUrl: './cart.component.html',
-  styleUrl: './cart.component.css'
+  styles: []
 })
 export class CartComponent {
   displayMode = input<'header' | 'full-page'>('full-page');

@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
   standalone: true,
   imports: [CommonModule, HeaderComponent, FooterComponent, MatIconModule, MatButtonModule],
   templateUrl: './product.component.html',
-  styleUrl: './product.component.css'
+  styles: [],
 })
 export class ProductComponent implements OnInit {
   product = signal<Product | null>(null);

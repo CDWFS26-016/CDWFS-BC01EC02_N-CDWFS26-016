@@ -1,19 +1,22 @@
 <app-header></app-header>
 
-<main class="home-container">
-  <div class="choice-section">
-    <h1>Comment souhaitez-vous recevoir votre commande?</h1>
+<main class="min-h-[calc(100vh-120px)] flex items-center justify-center py-8 bg-gradient-to-br from-slate-50 via-white to-blue-50">
+  <div class="flex flex-col items-center justify-center gap-12 w-full max-w-xl px-8 text-center">
+    <div class="animate-fade-in">
+      <h1 class="m-0 text-gray-900 text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Comment souhaitez-vous recevoir votre commande?</h1>
+      <p class="text-gray-600 mt-4 text-lg">Choisissez le mode de livraison qui vous convient</p>
+    </div>
     
-    <div class="choice-buttons">
-      <button mat-raised-button color="primary" class="choice-btn" (click)="setConsumptionMode('on-site')">
-        <span class="btn-label">Sur place</span>
+    <div class="flex gap-6 w-full flex-wrap justify-center">
+      <button mat-raised-button color="primary" class="flex-none min-w-56 h-40 text-2xl rounded-2xl flex flex-col items-center justify-center shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:scale-105 group" (click)="setConsumptionMode('on-site')">
+        <mat-icon class="text-5xl mb-2 group-hover:animate-bounce">home</mat-icon>
+        <span class="font-bold">Sur place</span>
       </button>
       
-      <button mat-raised-button color="accent" class="choice-btn" (click)="setConsumptionMode('takeaway')">
-        <span class="btn-label">À emporter</span>
+      <button mat-raised-button color="accent" class="flex-none min-w-56 h-40 text-2xl rounded-2xl flex flex-col items-center justify-center shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:scale-105 group" (click)="setConsumptionMode('takeaway')">
+        <mat-icon class="text-5xl mb-2 group-hover:animate-bounce">shopping_bag</mat-icon>
+        <span class="font-bold">À emporter</span>
       </button>
     </div>
   </div>
 </main>
-
-<app-footer></app-footer>
